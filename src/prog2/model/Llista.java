@@ -17,23 +17,23 @@ public class Llista<T> implements Serializable {
     }
 
     public int getSize() {
-          // TO-BE-DONE
+          return llista.size();
     }
 
     public void afegir(T t) throws BiblioException {
-          // TO-BE-DONE
+          llista.add(t);
     }
 
     public T getAt(int position) {
-          // TO-BE-DONE
+          return llista.get(position);
     }
 
     public void clear() {
-          // TO-BE-DONE
+          llista.clear();
     }
 
     public boolean isEmpty() {
-          // TO-BE-DONE
+          return llista.isEmpty();
     }
 
     public ArrayList<T> getArrayList() {

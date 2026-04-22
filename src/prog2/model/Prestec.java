@@ -2,62 +2,70 @@ package prog2.model;
 
 import java.util.Date;
 
-public class Prestec implements InPrestec{
-    private String tipus;
+public abstract class Prestec implements InPrestec{
+
+    /**
+     * Atributs de la classe Prestec
+     */
+    private Exemplar exemplar;
+    private Usuari usuari;
+    private Date dataCreacio;
+    private Date dataLimitRetorn;
+    private boolean retornat;
+
+    // TODO: CREAR CONSTRUCTOR Y TERMINAR ULTIMOS METODOS
 
     @Override
     public void setExemplar(Exemplar exemplar) {
-
+        this.exemplar = exemplar;
     }
 
     @Override
     public Exemplar getExemplar() {
-        return null;
+        return this.exemplar;
     }
 
     @Override
     public void setUsuari(Usuari usuari) {
-
+        this.usuari = usuari;
     }
 
     @Override
     public Usuari getUsuari() {
-        return null;
+        return this.usuari;
     }
 
     @Override
     public void setDataCreacio(Date data) {
-
+        this.dataCreacio = data;
     }
 
     @Override
     public Date getDataCreacio() {
-        return null;
+        return this.dataCreacio;
     }
 
     @Override
     public void setDataLimitRetorn(Date data) {
-
+        this.dataLimitRetorn = data;
     }
 
     @Override
     public Date getDataLimitRetorn() {
-        return null;
+        return dataLimitRetorn;
     }
 
     @Override
-    public String tipusPrestec() {
-        return "";
-    }
+    public abstract String tipusPrestec();
 
     @Override
     public void setRetornat(boolean retornat) {
-
+        this.retornat = retornat;
     }
 
     @Override
     public boolean getRetornat() {
-        return false;
+        return this.retornat;
     }
 
     /**
