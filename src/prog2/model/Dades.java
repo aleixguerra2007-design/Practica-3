@@ -3,8 +3,21 @@ package prog2.model;
 import prog2.vista.BiblioException;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 
 public class Dades implements InDades{
+
+    private Llista<Exemplar> llistaExemplars;
+    private Llista<Usuari> llistaUsuaris;
+    private Llista<Prestec> llistaPrestecs;
+
+    public Dades() {
+        this.llistaExemplars = new LlistaExemplars();
+        this.llistaUsuaris = new LlistaUsuaris();
+        this.llistaPrestecs = new LlistaPrestecs();
+    }
+
     /**
      * Afegeix exemplar. Llança excepció si l'id ja existeix
      *
@@ -15,12 +28,13 @@ public class Dades implements InDades{
      */
     @Override
     public void afegirExemplar(String id, String titol, String autor, boolean admetPrestecLlarg) throws BiblioException {
-
+        Exemplar e = new Exemplar(id, autor, titol, admetPrestecLlarg);
+        llistaExemplars.afegir(e);
     }
 
     @Override
     public ArrayList<Exemplar> recuperaExemplars() {
-        return null;
+        return llistaExemplars.getArrayList();
     }
 
     /**
@@ -33,12 +47,18 @@ public class Dades implements InDades{
      */
     @Override
     public void afegirUsuari(String email, String nom, String adreca, boolean esEstudiant) throws BiblioException {
-
+        Usuari usuari;
+        if(esEstudiant){
+            usuari = new Estudiant(email, nom, adreca);
+        } else{
+            usuari = new Professor(email, nom, adreca);
+        }
+        llistaUsuaris.afegir(usuari);
     }
 
     @Override
     public ArrayList<Usuari> recuperaUsuaris() {
-        return null;
+        return llistaUsuaris.getArrayList();
     }
 
     /**
@@ -53,6 +73,61 @@ public class Dades implements InDades{
     @Override
     public void afegirPrestec(int exemplarPos, int usuariPos, boolean esLlarg) throws BiblioException {
 
+        //Recuperem objectes exemplar i usuari
+        Exemplar e = llistaExemplars.getAt(exemplarPos);
+        Usuari u = llistaUsuaris.getAt(usuariPos);;
+        if(esLlarg && !e.getAdmetPrestecLlarg()){
+            throw new BiblioException("Aquest exemplar no permet préstecs llargs");
+        }
+        if(!e.isDisponible()){
+            throw new BiblioException("L'exemplar no es troba disponible");
+        }
+
+        int numPrestecsNormals = 0;
+        int numPrestecsLlargs = 0;
+
+        Iterator<Prestec> itrPrestec = llistaPrestecs.getArrayList().iterator();
+        Prestec prestec;
+        while(itrPrestec.hasNext()) {
+            prestec = itrPrestec.next();
+            //Mirem si l'usuari té exemplars
+            if (prestec.getUsuari().equals(u) && !prestec.getRetornat()) {
+                //Mirem si te préstecs endarrerits
+                if (prestec.prestecEndarrerit()) {
+                    throw new BiblioException("L'usuari té llibres endarrerits");
+                }
+
+                //Comptem número de prestecs per cada tipus
+                if (prestec instanceof PrestecNormal) {
+                    numPrestecsNormals++;
+                    System.out.println(u.toString());
+                } else if (prestec instanceof PrestecLlarg) {
+                    numPrestecsLlargs++;
+                }
+            }
+        }
+
+        //Mirem si excedeix el número de préstecs: normals i llargs
+        if(esLlarg) {
+            if (numPrestecsLlargs >= u.getMaxPrestecsLlargs()) {
+                throw new BiblioException("Has superat el límit de préstecs llargs");
+            }
+        }
+        else if(numPrestecsNormals >= u.getMaxPrestecsNormals()){
+            throw new BiblioException("Has superat el límit de préstecs normals");
+        }
+
+        //Creem llibre
+        Prestec nou;
+        if(esLlarg){
+            nou = new PrestecLlarg(e, u, new Date());
+            u.setNumPrestecsLlargs(u.getNumPrestecsLlargs()+1);
+        } else{
+            nou = new PrestecNormal(e, u, new Date());
+            u.setNumPrestecsNormals(u.getNumPrestecsNormals()+1);
+        }
+        llistaPrestecs.afegir(nou);
+        e.setDisponible(false);
     }
 
     /**
@@ -64,15 +139,36 @@ public class Dades implements InDades{
     @Override
     public void retornarPrestec(int position) throws BiblioException {
 
+        //Comprovem el número de posició introduit
+        if(position < 0 || position > llistaPrestecs.getSize()){
+            throw new BiblioException("El número de posició introduït no és vàlid");
+        }
+
+        Prestec p = llistaPrestecs.getAt(position);
+        if(p.getRetornat()){
+            throw new BiblioException("Aquest préstec ja ha estat retornat");
+        }
+        p.setRetornat(true);
+        p.getExemplar().setDisponible(true);
     }
 
     @Override
     public ArrayList<Prestec> recuperaPrestecs() {
-        return null;
+        return llistaPrestecs.getArrayList();
     }
 
     @Override
     public ArrayList<Prestec> recuperaPrestecsNoRetornats() {
-        return null;
+        Llista<Prestec> noRetornats = new Llista<>();
+
+        Iterator<Prestec> itrPrestec = llistaPrestecs.getArrayList().iterator();
+        Prestec p;
+        while(itrPrestec.hasNext()){
+            p = itrPrestec.next();
+            if(!p.getRetornat()){
+                noRetornats.afegir(p);
+            }
+        }
+        return noRetornats.getArrayList();
     }
 }

@@ -21,7 +21,7 @@ public class Exemplar implements InExemplar{
      * @param titol
      * @param admetPrestecLlarg
      */
-    public Exemplar(String identificador, String autor, String titol, boolean admetPrestecLlarg){
+    public Exemplar(String identificador, String titol, String autor, boolean admetPrestecLlarg){
         this.identificador = identificador;
         this.autor = autor;
         this.titol = titol;
@@ -35,7 +35,7 @@ public class Exemplar implements InExemplar{
      */
     @Override
     public void setId(String id) {
-        this.identificador = identificador;
+        this.identificador = id;
     }
 
     /**

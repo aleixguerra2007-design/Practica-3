@@ -1,9 +1,10 @@
 package prog2.model;
 
+import prog2.vista.BiblioException;
+
 import java.util.Date;
 
 public abstract class Prestec implements InPrestec{
-
     /**
      * Atributs de la classe Prestec
      */
@@ -13,7 +14,12 @@ public abstract class Prestec implements InPrestec{
     private Date dataLimitRetorn;
     private boolean retornat;
 
-    // TODO: CREAR CONSTRUCTOR Y TERMINAR ULTIMOS METODOS
+    public Prestec(Exemplar exemplar, Usuari usuari, Date dataCreacio) {
+        this.exemplar = exemplar;
+        this.usuari = usuari;
+        this.dataCreacio = new Date();
+        this.retornat = false;
+    }
 
     @Override
     public void setExemplar(Exemplar exemplar) {
@@ -56,9 +62,6 @@ public abstract class Prestec implements InPrestec{
     }
 
     @Override
-    public abstract String tipusPrestec();
-
-    @Override
     public void setRetornat(boolean retornat) {
         this.retornat = retornat;
     }
@@ -72,7 +75,22 @@ public abstract class Prestec implements InPrestec{
      * Retornar prestec. Llança excepció si el prestec ja es vaig retornar
      */
     @Override
-    public void retorna() {
+    public void retorna() throws BiblioException {
+        if(getRetornat()){
+            throw new BiblioException("Ja es va retornar el llibre");
+        }
+        setRetornat(true);
+
+        getExemplar().setDisponible(true);
+
+        if(this instanceof PrestecLlarg){
+            int n = getUsuari().getNumPrestecsLlargs();
+            getUsuari().setNumPrestecsLlargs(n-1);
+        }
+        else if(this instanceof PrestecNormal){
+            int n = getUsuari().getNumPrestecsNormals();
+            getUsuari().setNumPrestecsNormals(n-1);
+        }
 
     }
 
@@ -80,15 +98,42 @@ public abstract class Prestec implements InPrestec{
      * Retornar durada prestec. La durada del prestec depen del tipus de prestec
      */
     @Override
-    public long duradaPrestec() {
-        return 0;
-    }
+    public abstract long duradaPrestec();
+
+    /**
+     * Retorna tipus prèstec: normal o llarg
+     */
+    @Override
+    public abstract String tipusPrestec();
 
     /**
      * Retornar true si el prestec està endarrerit per a la data actual
      */
     @Override
     public boolean prestecEndarrerit() {
-        return false;
+
+        if (getRetornat()) {
+            return false;
+        }
+
+        Date dataActual = new Date();
+
+        return dataActual.after(getDataLimitRetorn());
+    }
+
+    /**
+     * toString de la classe prèstec
+     * @return informació llegible
+     */
+
+    @Override
+    public String toString() {
+        return "Prestec{" +
+                "exemplar=" + exemplar +
+                ", usuari=" + usuari +
+                ", dataCreacio=" + dataCreacio +
+                ", dataLimitRetorn=" + dataLimitRetorn +
+                ", retornat=" + retornat +
+                '}';
     }
 }
