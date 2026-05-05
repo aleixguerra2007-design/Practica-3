@@ -1,10 +1,12 @@
 package prog2.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Yucheng Guo i Aleix Gutierrez
  */
-public class Exemplar implements InExemplar{
+public class Exemplar implements InExemplar, Serializable {
     /**
      * Atributs de la classe Exemplar:
      */
@@ -122,6 +124,6 @@ public class Exemplar implements InExemplar{
      * @return
      */
     public String toString(){
-        return "Id=" + getId() + ", Titol=" + getTitol() + ", Autor=" + getAutor() + ", Admet Prestec Llarg=" + getAdmetPrestecLlarg() + ", Disponibl=" + isDisponible();
+        return "Id=" + getId() + ", Titol=" + getTitol() + ", Autor=" + getAutor() + ", Admet Prestec Llarg=" + getAdmetPrestecLlarg() + ", Disponible=" + isDisponible();
     }
 }

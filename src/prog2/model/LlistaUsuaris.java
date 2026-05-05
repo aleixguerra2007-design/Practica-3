@@ -1,8 +1,10 @@
 package prog2.model;
 
 import prog2.vista.BiblioException;
+
+import java.io.Serializable;
 import java.util.Iterator;
-public class LlistaUsuaris extends Llista<Usuari>{
+public class LlistaUsuaris extends Llista<Usuari> implements Serializable {
     public LlistaUsuaris(){
         super();
     }
@@ -67,7 +69,7 @@ public class LlistaUsuaris extends Llista<Usuari>{
                 return true;
             }
         }
-        //Devolevmos false si no lo encontramos
+        //Devolvemos false si no lo encontramos
         return false;
     }
 }

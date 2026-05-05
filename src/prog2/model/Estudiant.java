@@ -1,6 +1,8 @@
 package prog2.model;
 
-public class Estudiant extends Usuari{
+import java.io.Serializable;
+
+public class Estudiant extends Usuari implements Serializable {
 
     /**
      * Constructor de la classe Estudiant

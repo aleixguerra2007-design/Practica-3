@@ -1,6 +1,8 @@
 package prog2.model;
 
-public class LlistaPrestecs extends Llista<Prestec>{
+import java.io.Serializable;
+
+public class LlistaPrestecs extends Llista<Prestec> implements Serializable {
     public LlistaPrestecs(){
         super();
     }

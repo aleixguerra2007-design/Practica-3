@@ -2,15 +2,16 @@ package prog2.model;
 
 import prog2.vista.BiblioException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-public class Dades implements InDades{
+public class Dades implements InDades, Serializable {
 
-    private Llista<Exemplar> llistaExemplars;
-    private Llista<Usuari> llistaUsuaris;
-    private Llista<Prestec> llistaPrestecs;
+    private LlistaExemplars llistaExemplars;
+    private LlistaUsuaris llistaUsuaris;
+    private LlistaPrestecs llistaPrestecs;
 
     public Dades() {
         this.llistaExemplars = new LlistaExemplars();
@@ -28,10 +29,14 @@ public class Dades implements InDades{
      */
     @Override
     public void afegirExemplar(String id, String titol, String autor, boolean admetPrestecLlarg) throws BiblioException {
-        Exemplar e = new Exemplar(id, autor, titol, admetPrestecLlarg);
+        Exemplar e = new Exemplar(id, titol, autor, admetPrestecLlarg);
         llistaExemplars.afegir(e);
     }
 
+    /**
+     * Aquest mètode retorna la llista d'exemplars
+     * @return
+     */
     @Override
     public ArrayList<Exemplar> recuperaExemplars() {
         return llistaExemplars.getArrayList();
@@ -56,6 +61,10 @@ public class Dades implements InDades{
         llistaUsuaris.afegir(usuari);
     }
 
+    /**
+     * Aquest mètode retorna la llista d'usuaris
+     * @return
+     */
     @Override
     public ArrayList<Usuari> recuperaUsuaris() {
         return llistaUsuaris.getArrayList();
@@ -92,7 +101,7 @@ public class Dades implements InDades{
             prestec = itrPrestec.next();
             //Mirem si l'usuari té exemplars
             if (prestec.getUsuari().equals(u) && !prestec.getRetornat()) {
-                //Mirem si te préstecs endarrerits
+                //Mirem si té préstecs endarrerits
                 if (prestec.prestecEndarrerit()) {
                     throw new BiblioException("L'usuari té llibres endarrerits");
                 }
@@ -100,14 +109,13 @@ public class Dades implements InDades{
                 //Comptem número de prestecs per cada tipus
                 if (prestec instanceof PrestecNormal) {
                     numPrestecsNormals++;
-                    System.out.println(u.toString());
                 } else if (prestec instanceof PrestecLlarg) {
                     numPrestecsLlargs++;
                 }
             }
         }
 
-        //Mirem si excedeix el número de préstecs: normals i llargs
+        //Mirem si excedeix el nombre de préstecs: normals i llargs
         if(esLlarg) {
             if (numPrestecsLlargs >= u.getMaxPrestecsLlargs()) {
                 throw new BiblioException("Has superat el límit de préstecs llargs");
@@ -139,24 +147,35 @@ public class Dades implements InDades{
     @Override
     public void retornarPrestec(int position) throws BiblioException {
 
+        ArrayList<Prestec> prestecsNoRetornats = recuperaPrestecsNoRetornats();
         //Comprovem el número de posició introduit
-        if(position < 0 || position > llistaPrestecs.getSize()){
+        if(position < 0 || position >= prestecsNoRetornats.size()){
             throw new BiblioException("El número de posició introduït no és vàlid");
         }
 
-        Prestec p = llistaPrestecs.getAt(position);
+        Prestec p = prestecsNoRetornats.get(position);
+        /*
         if(p.getRetornat()){
             throw new BiblioException("Aquest préstec ja ha estat retornat");
         }
         p.setRetornat(true);
-        p.getExemplar().setDisponible(true);
+        p.getExemplar().setDisponible(true);*/
+        p.retorna();
     }
 
+    /**
+     * Aquest mètode retorna la llista de préstecs.
+     * @return
+     */
     @Override
     public ArrayList<Prestec> recuperaPrestecs() {
         return llistaPrestecs.getArrayList();
     }
 
+    /**
+     * Aquest mètode retorna la llista dels préstecs no retornats
+     * @return
+     */
     @Override
     public ArrayList<Prestec> recuperaPrestecsNoRetornats() {
         Llista<Prestec> noRetornats = new Llista<>();

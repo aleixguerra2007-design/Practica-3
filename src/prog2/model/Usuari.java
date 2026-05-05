@@ -1,6 +1,8 @@
 package prog2.model;
 
-public abstract class Usuari implements InUsuari {
+import java.io.Serializable;
+
+public abstract class Usuari implements InUsuari, Serializable {
     /**
      * Atributs de la classe Usuari
      */
@@ -139,6 +141,6 @@ public abstract class Usuari implements InUsuari {
 
     public String toString(){
         return "Tipus=" + tipusUsuari() + ", Email=" + getEmail() + ", Nom=" + getNom() + ", Adreca=" + getAdreca() +
-                ", Num. prestecs normals=" + getNumPrestecsNormals() + ", Num. prestecs llargs" + getNumPrestecsLlargs();
+                ", Num. prestecs normals=" + getNumPrestecsNormals() + ", Num. prestecs llargs= " + getNumPrestecsLlargs();
     }
 }

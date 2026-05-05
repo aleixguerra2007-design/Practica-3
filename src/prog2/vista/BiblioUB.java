@@ -165,6 +165,7 @@ public class BiblioUB {
         OpcionsMenuGestioExemplars opcio;
         do{
             menu.mostrarMenu();
+
             opcio = menu.getOpcio(sc);
 
             switch(opcio){
@@ -172,7 +173,8 @@ public class BiblioUB {
                     afegirExemplar(sc);
                     break;
                 case MENU_GESTIO_EXEMPLARS_VIEW:
-                    System.out.println(adaptador.carregaDades());
+                    showList("Llista d'exemplars", adaptador.recuperarExemplars());
+                    //System.out.println(adaptador.carregaDades());
                     break;
                 case MENU_GESTIO_EXEMPLARS_EXIT:
                     break;
@@ -185,14 +187,64 @@ public class BiblioUB {
      * Afegir un nou article
      * @param sc
      */
-    
+
+    //String id, String titol, String autor, boolean admetPrestecLlarg
     private void afegirExemplar(Scanner sc){
         Scanner scan = new Scanner(System.in);
-        System.out.println("");
 
+        String id, titol, autor, admetPrestecLlarg;
+        boolean admetPL;
+
+        //Pedimos los datos del ejemplar al usuario:
+        System.out.println("Introdueix les dades de l'exemplar: ");
+        System.out.print("Identificador: ");
+        id = scan.nextLine();
+        System.out.print("Titol: ");
+        titol = scan.nextLine();
+        System.out.print("Autor: ");
+        autor = scan.nextLine();
+
+        //Nos aseguramos de que el usuario indique bien el último dato:
+        do{
+            System.out.print("Admet prestecs llargs? (s/n) ");
+            admetPrestecLlarg = scan.nextLine();
+            admetPrestecLlarg = admetPrestecLlarg.toLowerCase();
+        }
+        while(!admetPrestecLlarg.equals("s") && !admetPrestecLlarg.equals("n"));
+
+        //Creamos y añadimos el ejemplar a la lista de ejemplares:
+        if(admetPrestecLlarg.equals("s")){
+            admetPL = true;
+        }
+        else{
+            admetPL = false;
+        }
+        try {
+            adaptador.afegirExemplar(id, titol, autor, admetPL);
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     private void menuGestioUsuaris(Scanner sc) {
+        Scanner scanner = new Scanner(System.in);
+        Menu<OpcionsMenuGestioClients> menu = new Menu<> ("Gestió clients", OpcionsMenuGestioClients.values());
+        menu.setDescripcions(descMenuGestioUsuaris);
+
+        OpcionsMenuGestioClients opcio;
+        do{
+            menu.mostrarMenu();
+            opcio = menu.getOpcio(scanner);
+            switch(opcio){
+                case MENU_GESTIO_USUARIS_ADD:
+                    afegirUsuari(scanner);
+                    break;
+                case MENU_GESTIO_USUARIS_VIEW:
+                    showList("Llista d'usuaris", adaptador.recuperarUsuaris());
+                    break;
+                case MENU_GESTIO_USUARIS_EXIT: break;
+            }
+        }while(opcio != OpcionsMenuGestioClients.MENU_GESTIO_USUARIS_EXIT);
     }
     
     /**
@@ -201,9 +253,58 @@ public class BiblioUB {
      */
     
     private void afegirUsuari(Scanner sc){
+
+        String email, nom, adreca, estudiantOProfessor;
+        boolean esEstudiant;
+
+        //Pedimos los datos del ejemplar al usuario:
+        System.out.println("Introdueix les dades de l'usuari: ");
+        System.out.print("Email: ");
+        email = sc.nextLine();
+        System.out.print("Nom: ");
+        nom = sc.nextLine();
+        System.out.print("Adreça: ");
+        adreca = sc.nextLine();
+
+        //Nos aseguramos de que el usuario indique bien el último dato:
+        do{
+            System.out.print("Ets un estudiant (0) o un professor (1)? ");
+            estudiantOProfessor = sc.nextLine();
+        }
+        while(!estudiantOProfessor.equals("0") && !estudiantOProfessor.equals("1"));
+
+        //Creamos y añadimos el ejemplar a la lista de ejemplares:
+        if(estudiantOProfessor.equals("0")){
+            esEstudiant = true;
+        }
+        else{
+            esEstudiant = false;
+        }
+        try {
+            adaptador.afegirUsuari(email, nom, adreca, esEstudiant);
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     private void menuGestioPrestecs(Scanner sc) {
+        Scanner scanner = new Scanner(System.in);
+        Menu<OpcionsMenuGestioPrestecs> menu = new Menu<> ("Gestió de préstecs", OpcionsMenuGestioPrestecs.values());
+        menu.setDescripcions(descMenuGestioPrestecs);
+
+        OpcionsMenuGestioPrestecs opcio;
+        do{
+            menu.mostrarMenu();
+            opcio = menu.getOpcio(scanner);
+
+            switch(opcio){
+                case MENU_GESTIO_PRESTECS_ADD: afegirPrestec(sc); break;
+                case MENU_GESTIO_PRESTECS_REMOVE: cancelarPrestec(sc);break;
+                case MENU_GESTIO_PRESTECS_VIEW: showList("Llista de préstecs: ", adaptador.recuperarPrestecs()); break;
+                case MENU_GESTIO_PRESTECS_VIEW_URG: showList("Llista de préstecs no retornats", adaptador.recuperarPrestecsNoRetornats()); break;
+                case MENU_GESTIO_PRESTECS_EXIT: break;
+            }
+        }while(opcio != OpcionsMenuGestioPrestecs.MENU_GESTIO_PRESTECS_EXIT);
     }
     
     /**
@@ -212,9 +313,103 @@ public class BiblioUB {
      */
 
     private void afegirPrestec(Scanner sc){
+        int usuariPos = -1, exemplarPos = -1;
+        String prestecLlargONormal;
+        boolean esLlarg;
+        boolean datosSuficientes = true;
+
+        //Detenemos el proceso si no hay ejemplares o usuarios registrados
+        if(adaptador.recuperarExemplars().isEmpty()){
+            System.err.println("Encara no hi ha cap exemplar registrat");
+            datosSuficientes = false;
+        }
+        if(adaptador.recuperarUsuaris().isEmpty()){
+            System.err.println("Encara no hi ha cap usuari registrat");
+            datosSuficientes = false;
+        }
+
+        if(datosSuficientes) {
+            //Mostramos por pantalla la lista de usuarios
+            showList("Llista d'usuaris: ", adaptador.recuperarUsuaris());
+
+            System.out.print("Introdueix l'index de l'usuari que vol l'exemplar: ");
+            //Nos aseguramos de que el índice sea válido:
+            do{
+                try {
+                    usuariPos = sc.nextInt();
+                } catch(Exception e){
+                    System.out.println("Introdueix un nombre enter si us plau: ");
+                    sc.nextLine();
+                }
+            }while(usuariPos < 0 || usuariPos >= adaptador.recuperarUsuaris().size());
+
+            //Mostramos por pantalla la lista de ejemplares
+            showList("Llista d'exemplars", adaptador.recuperarExemplars());
+            System.out.println("Introdueix l'index del exemplar demanat: ");
+            //Nos aseguramos de que el índice sea válido:
+            do{
+                try {
+                    exemplarPos = sc.nextInt();
+                } catch(Exception e){
+                    System.out.println("Introdueix un nombre enter si us plau: ");
+                    sc.nextLine();
+                }
+            }while(exemplarPos < 0 || exemplarPos >= adaptador.recuperarExemplars().size());
+
+            sc.nextLine();
+
+            do {
+                System.out.print("El prestec és llarg (0) o normal(1)? ");
+                prestecLlargONormal = sc.nextLine();
+            }while(!prestecLlargONormal.equals("0") && !prestecLlargONormal.equals("1"));
+
+            if(prestecLlargONormal.equals("0")){
+                esLlarg = true;
+            }else{
+                esLlarg = false;
+            }
+
+            //Finalizamos el proceso:
+            try {
+                adaptador.afegirPrestec(exemplarPos, usuariPos, esLlarg);
+            }catch(BiblioException e){
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     private void cancelarPrestec(Scanner sc){
+        int prestecPos = -1;
+        boolean datosSuficientes = true;
+
+        //Detenemos el procesos si no hay préstamos no devueltos registrados
+        if(adaptador.recuperarPrestecsNoRetornats().isEmpty()){
+            System.err.println("No hi ha cap préstec no retornat");
+            datosSuficientes = false;
+        }
+
+        if(datosSuficientes){
+            //Mostramos la lista de préstamos no devueltos:
+            showList("Préstecs no retornats: ", adaptador.recuperarPrestecsNoRetornats());
+            System.out.println("Introdueix l'index del préstec que vols retornar: ");
+
+            //Nos aseguramos de que el índice sea válido:
+            do{
+                try {
+                    prestecPos = sc.nextInt();
+                } catch(Exception e){
+                    System.out.println("Introdueix un nombre enter si us plau: ");
+                    sc.nextLine();
+                }
+            }while(prestecPos < 0 || prestecPos >= adaptador.recuperarPrestecsNoRetornats().size());
+
+            //Completamos el proceso:
+            try {
+                adaptador.retornar(prestecPos);
+            }catch(BiblioException e){
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
      /**
