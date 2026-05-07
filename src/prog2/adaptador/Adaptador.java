@@ -25,6 +25,10 @@ public class Adaptador implements Serializable{
         this.dades = new Dades();
     }
 
+    /**
+     * Aquest mètode retorna una llista amb els toString() dels exemplars registrats
+     * @return
+     */
     public List<String> recuperarExemplars(){
         List<String> listExemplars = new ArrayList<>();
         ArrayList<Exemplar> arrListExemplars = dades.recuperaExemplars();
@@ -41,6 +45,10 @@ public class Adaptador implements Serializable{
         return listExemplars;
     }
 
+    /**
+     * Aquest mètode retorna una llista amb els toString() dels usuaris registrats
+     * @return
+     */
     public List<String> recuperarUsuaris(){
         List<String> listUsuaris = new ArrayList<>();
         ArrayList<Usuari> arrListUsuaris= dades.recuperaUsuaris();
@@ -56,6 +64,11 @@ public class Adaptador implements Serializable{
 
         return listUsuaris;
     }
+
+    /**
+     * Aquest mètode retorna una llista amb els toString() dels préstecs registrats
+     * @return
+     */
     public List<String> recuperarPrestecs(){
         List<String> listPrestecs = new ArrayList<>();
         ArrayList<Prestec> arrListPrestecs = dades.recuperaPrestecs();
@@ -71,6 +84,11 @@ public class Adaptador implements Serializable{
 
         return listPrestecs;
     }
+
+    /**
+     * Aquest mètode retorna una llista amb els toString() dels préstecs no retornats registrats
+     * @return
+     */
     public List<String> recuperarPrestecsNoRetornats(){
         List<String> listPrestecsNoRet = new ArrayList<>();
         ArrayList<Prestec> arrListPrestecsNoRet = dades.recuperaPrestecsNoRetornats();
@@ -121,15 +139,46 @@ public class Adaptador implements Serializable{
         }
     }
 
+    /**
+     * Crida al mètode afegirUsuari de la classe Dades per registrar un nou usuari
+     * @param email
+     * @param nom
+     * @param adreca
+     * @param esEstudiant
+     * @throws BiblioException
+     */
     public void afegirUsuari(String email, String nom, String adreca, boolean esEstudiant) throws BiblioException{
         dades.afegirUsuari(email, nom, adreca, esEstudiant);
     }
+
+    /**
+     * Crida al mètode afegirExemplar de la classe Dades per registrar un nou exemplar
+     * @param id
+     * @param titol
+     * @param autor
+     * @param admetPrestecLlarg
+     * @throws BiblioException
+     */
     public void afegirExemplar(String id, String titol, String autor, boolean admetPrestecLlarg) throws BiblioException{
         dades.afegirExemplar(id, titol, autor, admetPrestecLlarg);
     }
+
+    /**
+     * Crida al mètode afegirPrestec de la classe Dades per registrar un nou préstec
+     * @param exemplarPos
+     * @param usuariPos
+     * @param esLlarg
+     * @throws BiblioException
+     */
     public void afegirPrestec(int exemplarPos, int usuariPos, boolean esLlarg) throws BiblioException{
         dades.afegirPrestec(exemplarPos, usuariPos, esLlarg);
     }
+
+    /**
+     * Crida al mètode retornarPrestec de la classe Dades i retorna el préstec en la posició indicada
+     * @param prestecPos
+     * @throws BiblioException
+     */
     public void retornar(int prestecPos) throws BiblioException{
         dades.retornarPrestec(prestecPos);
     }

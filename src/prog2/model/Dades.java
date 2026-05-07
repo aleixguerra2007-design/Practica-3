@@ -9,10 +9,16 @@ import java.util.Iterator;
 
 public class Dades implements InDades, Serializable {
 
+    /**
+     * Atributs de la classe Dades
+     */
     private LlistaExemplars llistaExemplars;
     private LlistaUsuaris llistaUsuaris;
     private LlistaPrestecs llistaPrestecs;
 
+    /**
+     * Constructor de la classe Dades
+     */
     public Dades() {
         this.llistaExemplars = new LlistaExemplars();
         this.llistaUsuaris = new LlistaUsuaris();

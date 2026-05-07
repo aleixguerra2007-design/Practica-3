@@ -89,6 +89,10 @@ public class BiblioUB {
         adaptador = new Adaptador();
     }
 
+    /**
+     * Aquest mètode gestiona el menu principal de la biblioteca. Crida als mètodes que gestionen els
+     * submenus i demana a l'usuari l'opció que vol escollir .
+     */
     public void gestioBiblioUB() {
         // Creem un objecte per llegir des del teclat
         Scanner sc = new Scanner(System.in);
@@ -157,6 +161,10 @@ public class BiblioUB {
         } while(opcio != OpcionsMenuPrincipal.MENU_PRINCIPAL_EXIT);
     }
 
+    /**
+     * Aquest mètode gestiona el submenu pels exemplars de la biblioteca
+     * @param sc
+     */
     private void menuGestioExemplars(Scanner sc) {
         Scanner scanner = new Scanner(System.in);
         Menu<OpcionsMenuGestioExemplars> menu = new Menu<>("Gestió exemplars", OpcionsMenuGestioExemplars.values());
@@ -226,6 +234,10 @@ public class BiblioUB {
         }
     }
 
+    /**
+     * Aquest mètode gestiona el submenu pels usuaris
+     * @param sc
+     */
     private void menuGestioUsuaris(Scanner sc) {
         Scanner scanner = new Scanner(System.in);
         Menu<OpcionsMenuGestioClients> menu = new Menu<> ("Gestió clients", OpcionsMenuGestioClients.values());
@@ -287,6 +299,10 @@ public class BiblioUB {
         }
     }
 
+    /**
+     * Aquest mètode gestiona el submenu pels préstecs
+     * @param sc
+     */
     private void menuGestioPrestecs(Scanner sc) {
         Scanner scanner = new Scanner(System.in);
         Menu<OpcionsMenuGestioPrestecs> menu = new Menu<> ("Gestió de préstecs", OpcionsMenuGestioPrestecs.values());
@@ -378,6 +394,11 @@ public class BiblioUB {
         }
     }
 
+    /**
+     * Retorna un préstec. Demana a l'usuari les dades necessaries i crida al mètode retornar de la
+     * classe Adaptador
+     * @param sc
+     */
     private void cancelarPrestec(Scanner sc){
         int prestecPos = -1;
         boolean datosSuficientes = true;

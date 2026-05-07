@@ -139,6 +139,10 @@ public abstract class Usuari implements InUsuari, Serializable {
     @Override
     public abstract int getMaxPrestecsLlargs();
 
+    /**
+     * Retorna un String amb les dades de l'usuari
+     * @return
+     */
     public String toString(){
         return "Tipus=" + tipusUsuari() + ", Email=" + getEmail() + ", Nom=" + getNom() + ", Adreca=" + getAdreca() +
                 ", Num. prestecs normals=" + getNumPrestecsNormals() + ", Num. prestecs llargs= " + getNumPrestecsLlargs();

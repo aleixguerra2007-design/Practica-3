@@ -5,6 +5,12 @@ import java.util.Date;
 
 public class PrestecLlarg extends Prestec implements Serializable {
 
+    /**
+     * Constructor de la classe PrestecLlarg
+     * @param exemplar
+     * @param usuari
+     * @param dataCreacio
+     */
     public PrestecLlarg(Exemplar exemplar, Usuari usuari, Date dataCreacio) {
         super(exemplar, usuari, dataCreacio);
 
@@ -16,16 +22,28 @@ public class PrestecLlarg extends Prestec implements Serializable {
         setDataLimitRetorn(dataCalculada);
     }
 
+    /**
+     * Retorna la durada del préstec de tipus llarg
+     * @return
+     */
     @Override
     public long duradaPrestec() {
         return 140_000L;
     }
 
+    /**
+     * Retorna un String amb el tipus de préstec (llarg)
+     * @return
+     */
     @Override
     public String tipusPrestec() {
         return "Llarg";
     }
 
+    /**
+     * Retorna un String amb les dades del préstec llarg
+     * @return
+     */
     @Override
     public String toString() {
         return "Tipus=" + tipusPrestec() + ", " + super.toString();
