@@ -3,6 +3,9 @@ package prog2.model;
 import java.io.Serializable;
 
 /**
+ * Exemplar és una classe que representa els exemplars de la biblioteca que els usuaris poden llegir.
+ * Cada objecte d'aquesta classe té assignat un identificador, autor, titol, un booleà que indica si
+ * està disponible i un altre que indica si un usuari pot fer un préstec llarg d'aquest exemplar.
  *
  * @author Yucheng Guo i Aleix Gutierrez
  */

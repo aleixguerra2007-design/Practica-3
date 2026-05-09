@@ -5,6 +5,12 @@ import prog2.vista.BiblioException;
 import java.io.Serializable;
 import java.util.Iterator;
 
+/**
+ * LlistaExemplars és una subclasse de Llista que permet emmagatzemar un conjunt d'exemplars i gestiona
+ * determinades excepcions especials de la classe Exemplar quan treballem amb aquestes dades.
+ *
+ * @author Yucheng Guo i Aleix Gutiérrez
+ */
 public class LlistaExemplars extends Llista<Exemplar> implements Serializable {
 
     /**

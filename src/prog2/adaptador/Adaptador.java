@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Adaptador és la classe intermediària entre el package model i vista que així afavorint l'encapsualació
+ * de les dades
+ *
+ * @author Yucheng Guo i Aleix Gutierrez
+ */
 public class Adaptador implements Serializable{
 
     /**

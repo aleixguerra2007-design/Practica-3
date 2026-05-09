@@ -3,6 +3,11 @@ package prog2.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * PrestecNormal és una subclasse de Prestec que té com a límit de retorn 70 s després de la data de creació
+ *
+ * @author Yucheng Guo i Aleix Gutiérrez
+ */
 public class PrestecNormal extends Prestec implements Serializable {
 
     /**

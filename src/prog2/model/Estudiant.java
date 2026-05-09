@@ -2,6 +2,12 @@ package prog2.model;
 
 import java.io.Serializable;
 
+/**
+ * Estudiant és una subclasse de la classe Usuari que es diferencia de la resta de subclasses
+ * pel total de préstecs normals (2) i llargs (1) que pot fer.
+ *
+ * @author Yucheng Guo i Aleix Gutierrez
+ */
 public class Estudiant extends Usuari implements Serializable {
 
     /**

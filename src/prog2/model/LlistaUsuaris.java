@@ -4,6 +4,13 @@ import prog2.vista.BiblioException;
 
 import java.io.Serializable;
 import java.util.Iterator;
+
+/**
+ * LlistaUsuaris és una subclasse de Llista que permet emmagatzemar un conjunt d'usuaris i gestiona
+ * determinades excepcions especials de la classe Usuari quan treballem amb aquestes dades.
+ *
+ * @author Yucheng Guo i Aleix Gutiérrez
+ */
 public class LlistaUsuaris extends Llista<Usuari> implements Serializable {
     public LlistaUsuaris(){
         super();

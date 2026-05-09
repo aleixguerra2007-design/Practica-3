@@ -2,6 +2,13 @@ package prog2.model;
 
 import java.io.Serializable;
 
+/**
+ * Usuari és la classe que representa als usuaris reals registrats en la biblioteca
+ * que poden ser professors o estudiants. Dins de la base de dades cada usuari té assignat
+ * un email, nom, adreça i la quantitat de préstecs normals i llargs que té.
+ *
+ * @author Yucheng Guo i Aleix Gutiérrez
+ */
 public abstract class Usuari implements InUsuari, Serializable {
     /**
      * Atributs de la classe Usuari

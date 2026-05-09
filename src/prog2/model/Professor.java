@@ -2,6 +2,10 @@ package prog2.model;
 
 import java.io.Serializable;
 
+/**
+ * Professor és una subclasse de la classe Usuari i es diferencia de la resta de subclasses
+ * pel seu màxim de préstecs llargs (2) i normals (2)
+ */
 public class Professor extends Usuari implements Serializable {
 
     /**

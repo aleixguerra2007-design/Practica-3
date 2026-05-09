@@ -10,8 +10,10 @@ import java.util.Scanner;
 import prog2.adaptador.Adaptador;
 
 /**
+ * BiblioUB és la classe que gestiona tots els menús del programa principal i permet
+ * que l'usuari gestioni les dades i utilitats de la biblioteca.
  *
- * @author dortiz
+ * @author Yucheng Guo i Aleix Gutiérrez
  */
 public class BiblioUB {
 
@@ -104,11 +106,20 @@ public class BiblioUB {
         // Assignem la descripció de les opcions
         menu.setDescripcions(descMenuPrincipal);
 
-        OpcionsMenuPrincipal opcio;
+        OpcionsMenuPrincipal opcio = null;
         do {
             // Mostrem les opcions del menú i demanem una opció
             menu.mostrarMenu();
-            opcio = menu.getOpcio(sc);
+            boolean continuar = false;
+            do {
+                try {
+                    opcio = menu.getOpcio(sc);
+                    continuar = true;
+                }catch(Exception e){
+                    System.err.println("Opció no vàlida");
+                    sc.nextLine();
+                }
+            }while(!continuar);
 
             // Fem les accions necessàries per a la opció triada
             switch(opcio) {
@@ -170,11 +181,19 @@ public class BiblioUB {
         Menu<OpcionsMenuGestioExemplars> menu = new Menu<>("Gestió exemplars", OpcionsMenuGestioExemplars.values());
         menu.setDescripcions(descMenuGestioExemplars);
 
-        OpcionsMenuGestioExemplars opcio;
+        OpcionsMenuGestioExemplars opcio = null;
         do{
             menu.mostrarMenu();
-
-            opcio = menu.getOpcio(sc);
+            boolean continuar = false;
+            do {
+                try {
+                    opcio = menu.getOpcio(sc);
+                    continuar = true;
+                }catch(Exception e){
+                    System.err.println("Opció no vàlida");
+                    sc.nextLine();
+                }
+            }while(!continuar);
 
             switch(opcio){
                 case MENU_GESTIO_EXEMPLARS_ADD:
@@ -243,10 +262,21 @@ public class BiblioUB {
         Menu<OpcionsMenuGestioClients> menu = new Menu<> ("Gestió clients", OpcionsMenuGestioClients.values());
         menu.setDescripcions(descMenuGestioUsuaris);
 
-        OpcionsMenuGestioClients opcio;
+        OpcionsMenuGestioClients opcio = null;
         do{
             menu.mostrarMenu();
-            opcio = menu.getOpcio(scanner);
+
+            boolean continuar = false;
+            do {
+                try {
+                    opcio = menu.getOpcio(scanner);
+                    continuar = true;
+                }catch(Exception e){
+                    System.err.println("Opció no vàlida");
+                    scanner.nextLine();
+                }
+            }while(!continuar);
+
             switch(opcio){
                 case MENU_GESTIO_USUARIS_ADD:
                     afegirUsuari(scanner);
@@ -308,10 +338,19 @@ public class BiblioUB {
         Menu<OpcionsMenuGestioPrestecs> menu = new Menu<> ("Gestió de préstecs", OpcionsMenuGestioPrestecs.values());
         menu.setDescripcions(descMenuGestioPrestecs);
 
-        OpcionsMenuGestioPrestecs opcio;
+        OpcionsMenuGestioPrestecs opcio = null;
         do{
             menu.mostrarMenu();
-            opcio = menu.getOpcio(scanner);
+            boolean continuar = false;
+            do {
+                try {
+                    opcio = menu.getOpcio(scanner);
+                    continuar = true;
+                }catch(Exception e){
+                    System.err.println("Opció no vàlida");
+                    scanner.nextLine();
+                }
+            }while(!continuar);
 
             switch(opcio){
                 case MENU_GESTIO_PRESTECS_ADD: afegirPrestec(sc); break;

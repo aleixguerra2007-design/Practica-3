@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ * Dades és la classe principal del package model, aquí es gestionen totes les relacions que hi
+ * ha entre les diferents classes del paquet per fer possibles les operacions del gestor de la
+ * biblioteca: afegir préstecs, retornar-los, afegir usuaris o exemplars...
+ *
+ * @author Yucheng Guo i Aleix Gutierrez
+ */
 public class Dades implements InDades, Serializable {
 
     /**

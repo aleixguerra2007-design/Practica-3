@@ -5,6 +5,14 @@ import prog2.vista.BiblioException;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Prestec és la classe que representa els préstecs que es poden fer a la biblioteca
+ * on un usuari concret selecciona un exemplar concret i hi ha un període de temps perquè
+ * l'usuari el retorni. Hi ha dos tipus de préstecs segons aquest rang de temps per retornar-ho:
+ * PrestecNormal i PrestecLLarg.
+ *
+ * @author Yucheng Guo i Aleix Gutiérrez
+ */
 public abstract class Prestec implements InPrestec, Serializable {
     /**
      * Atributs de la classe Prestec
