@@ -47,6 +47,7 @@ public class LlistaExemplars extends Llista<Exemplar> implements Serializable {
      * @param e
      * @throws BiblioException si no es troba l'exemplar en la llista
      */
+    @Override
     public void esborrar(Exemplar e) throws BiblioException{
         boolean encontrado = false;
         String idReferencia = e.getId();

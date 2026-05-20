@@ -42,6 +42,7 @@ public class LlistaUsuaris extends Llista<Usuari> implements Serializable {
      * @param u
      * @throws BiblioException si l'usuari indicat no està en la llista
      */
+    @Override
     public void esborrar(Usuari u) throws BiblioException{
         boolean encontrado = false;
         String emailReferencia = u.getEmail();
