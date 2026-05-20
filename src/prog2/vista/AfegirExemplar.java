@@ -27,6 +27,7 @@ public class AfegirExemplar extends JDialog {
 
     public AfegirExemplar(JDialog parent, Adaptador adaptador) {
         setContentPane(contentPane);
+        setTitle("Afegir Exemplar - Biblioteca UB");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);

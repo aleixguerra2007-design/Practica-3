@@ -19,6 +19,7 @@ public class GestioPrestecs extends JDialog {
     private JList listPrestecs;
     private Adaptador adaptador;
 
+
     public GestioPrestecs(JFrame parent, Adaptador adaptador) {
         super(parent);
         this.adaptador = adaptador;
@@ -61,6 +62,13 @@ public class GestioPrestecs extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 listPrestecs.setVisible(true);
                 chkPrtNoRet.setVisible(true);
+            }
+        });
+        btnAfegirPrestec.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrmAfegirPrestec frmAfegirPrestec = new FrmAfegirPrestec(GestioPrestecs.this, adaptador);
+                frmAfegirPrestec.setVisible(true);
             }
         });
     }

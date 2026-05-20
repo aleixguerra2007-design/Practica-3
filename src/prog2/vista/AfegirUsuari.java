@@ -29,6 +29,7 @@ public class AfegirUsuari extends JDialog {
         super(parent);
         this.adaptador = adaptador;
         setContentPane(contentPane);
+        setTitle("Afegir Usuari - Biblioteca UB");
         setSize(700, 700);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
