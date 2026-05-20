@@ -5,15 +5,14 @@ import prog2.adaptador.Adaptador;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class GestioExemplars extends JDialog {
+public class FrmGestioExemplars extends JDialog {
     private JPanel panelGestioExemplars;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton btnTornar;
     private JList listExemplars;
     private JButton btnAfegirExemplar;
     private Adaptador adaptador;
 
-    public GestioExemplars(JFrame parent, Adaptador adaptador) {
+    public FrmGestioExemplars(JFrame parent, Adaptador adaptador) {
         super(parent);
         this.adaptador = adaptador;
         setContentPane(panelGestioExemplars);
@@ -21,17 +20,11 @@ public class GestioExemplars extends JDialog {
         setModal(true);
         setSize(700, 700);
         setLocationRelativeTo(null);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btnTornar);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         listExemplars.setListData(adaptador.recuperarExemplars().toArray());
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
+        btnTornar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
@@ -40,7 +33,7 @@ public class GestioExemplars extends JDialog {
         btnAfegirExemplar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AfegirExemplar afegirExemplar = new AfegirExemplar(GestioExemplars.this, adaptador);
+                FrmAfegirExemplar afegirExemplar = new FrmAfegirExemplar(FrmGestioExemplars.this, adaptador);
                 afegirExemplar.setVisible(true);
                 listExemplars.setListData(adaptador.recuperarExemplars().toArray());
             }

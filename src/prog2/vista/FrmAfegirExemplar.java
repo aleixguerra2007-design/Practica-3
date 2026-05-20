@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class AfegirExemplar extends JDialog {
+public class FrmAfegirExemplar extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton btnAcceptar;
+    private JButton btnTornar;
     private JTextField txtTitol;
     private JTextField txtAutor;
     private JTextField txtId;
@@ -23,26 +23,26 @@ public class AfegirExemplar extends JDialog {
     private JLabel labelId;
     private Adaptador adaptador;
     //Dades per afegir l'exemplar:
-    boolean admetPrestecLlarg;
+    private boolean admetPrestecLlarg;
 
-    public AfegirExemplar(JDialog parent, Adaptador adaptador) {
+    public FrmAfegirExemplar(JDialog parent, Adaptador adaptador) {
         setContentPane(contentPane);
         setTitle("Afegir Exemplar - Biblioteca UB");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btnAcceptar);
 
         //Button OK inactivo hasta que estén todos los campos rellenos
-        buttonOK.setEnabled(false);
-        buttonCancel.addActionListener(new ActionListener() {
+        btnAcceptar.setEnabled(false);
+        btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        buttonOK.addActionListener(new ActionListener() {
+        btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String titol = txtTitol.getText();
@@ -67,20 +67,19 @@ public class AfegirExemplar extends JDialog {
         txtTitol.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
-
         txtAutor.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
         txtId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
     }

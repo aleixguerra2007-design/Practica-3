@@ -6,16 +6,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GestioUsuaris extends JDialog {
+public class FrmGestioUsuaris extends JDialog {
     private JPanel panelGestioUsuaris;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton btnTornar;
     private JList listUsuaris;
     private JButton btnAfegirUsuari;
     private Adaptador adaptador;
 
 
-    public GestioUsuaris(JFrame parent, Adaptador adaptador) {
+    public FrmGestioUsuaris(JFrame parent, Adaptador adaptador) {
         super(parent);
         this.adaptador = adaptador;
         setContentPane(panelGestioUsuaris);
@@ -24,26 +23,21 @@ public class GestioUsuaris extends JDialog {
         setSize(1100,700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btnTornar);
         listUsuaris.setListData(adaptador.recuperarUsuaris().toArray());
         listUsuaris.setVisible(true);
 
-        buttonOK.addActionListener(new ActionListener() {
+        btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        buttonCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+
         btnAfegirUsuari.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AfegirUsuari afegirUsuari = new AfegirUsuari(GestioUsuaris.this, adaptador);
+                FrmAfegirUsuari afegirUsuari = new FrmAfegirUsuari(FrmGestioUsuaris.this, adaptador);
                 afegirUsuari.setVisible(true);
                 listUsuaris.setListData(adaptador.recuperarUsuaris().toArray());
             }

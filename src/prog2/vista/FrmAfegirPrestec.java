@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class FrmAfegirPrestec extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton btnAcceptar;
+    private JButton btnTornar;
     private JComboBox cmbUsuari;
     private JComboBox cmbExemplar;
     private JCheckBox chkEsLlarg;
@@ -29,8 +29,8 @@ public class FrmAfegirPrestec extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
-        getRootPane().setDefaultButton(buttonOK);
-        buttonOK.setEnabled(false);
+        getRootPane().setDefaultButton(btnAcceptar);
+        btnAcceptar.setEnabled(false);
 
         //Añadimos las opciones correpondientes a los JComboBox:
         cmbUsuari.addItem("...");
@@ -43,7 +43,7 @@ public class FrmAfegirPrestec extends JDialog {
             cmbExemplar.addItem(exemplar);
         }
 
-        buttonOK.addActionListener(new ActionListener() {
+        btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int exemplarPos = cmbExemplar.getSelectedIndex() - 1;
@@ -58,7 +58,7 @@ public class FrmAfegirPrestec extends JDialog {
             }
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
+        btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -73,13 +73,13 @@ public class FrmAfegirPrestec extends JDialog {
         cmbUsuari.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonOK.setEnabled(comprovarCamps());
+                btnAcceptar.setEnabled(comprovarCamps());
             }
         });
         cmbExemplar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buttonOK.setEnabled(comprovarCamps());
+                btnAcceptar.setEnabled(comprovarCamps());
             }
         });
     }

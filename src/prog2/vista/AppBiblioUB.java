@@ -20,27 +20,66 @@ public class AppBiblioUB extends JFrame {
         setTitle("AppBiblioUB");
         setContentPane(panelBiblioUB);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setSize(900, 800);
+        setLocationRelativeTo(null);
+
         btnGestioUsuaris.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GestioUsuaris gestioUsuaris = new GestioUsuaris(AppBiblioUB.this, adaptador);
+                FrmGestioUsuaris gestioUsuaris = new FrmGestioUsuaris(AppBiblioUB.this, adaptador);
                 gestioUsuaris.setVisible(true);
             }
         });
         btnGestioExemplars.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GestioExemplars gestioExemplars = new GestioExemplars(AppBiblioUB.this, adaptador);
+                FrmGestioExemplars gestioExemplars = new FrmGestioExemplars(AppBiblioUB.this, adaptador);
                 gestioExemplars.setVisible(true);
             }
         });
         btnGestioPrestecs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GestioPrestecs gestioPrestecs = new GestioPrestecs(AppBiblioUB.this, adaptador);
+                FrmGestioPrestecs gestioPrestecs = new FrmGestioPrestecs(AppBiblioUB.this, adaptador);
                 gestioPrestecs.setVisible(true);
+            }
+        });
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int opcion = fileChooser.showSaveDialog(AppBiblioUB.this);
+                if(opcion == JFileChooser.APPROVE_OPTION){
+                    String camino = fileChooser.getSelectedFile().getAbsolutePath();
+
+                    try{
+                        adaptador.guardaDades(camino);
+                        JOptionPane.showMessageDialog(AppBiblioUB.this, "Dades guardades correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    } catch(BiblioException ex){
+                        JOptionPane.showMessageDialog(AppBiblioUB.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        btnCarregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+
+                int opcion = fileChooser.showOpenDialog(AppBiblioUB.this);
+
+                if(opcion == JFileChooser.APPROVE_OPTION){
+                    String camino = fileChooser.getSelectedFile().getAbsolutePath();
+
+                    try{
+                        adaptador.carregaDades(camino);
+                        JOptionPane.showMessageDialog(AppBiblioUB.this, "Dades carregades correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    }catch(BiblioException ex){
+                        JOptionPane.showMessageDialog(AppBiblioUB.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
             }
         });
     }

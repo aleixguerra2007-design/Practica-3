@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class AfegirUsuari extends JDialog {
+public class FrmAfegirUsuari extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
+    private JButton btnAcceptar;
+    private JButton btnTornar;
     private JTextField txtNom;
     private JTextField txtEmail;
     private JTextField txtAdreca;
@@ -23,9 +23,9 @@ public class AfegirUsuari extends JDialog {
     private JLabel labelNom;
     private Adaptador adaptador;
     //Dades per afegir l'usuari:
-    boolean esEstudiant;
+    private boolean esEstudiant;
 
-    public AfegirUsuari(JDialog parent, Adaptador adaptador) {
+    public FrmAfegirUsuari(JDialog parent, Adaptador adaptador) {
         super(parent);
         this.adaptador = adaptador;
         setContentPane(contentPane);
@@ -34,17 +34,17 @@ public class AfegirUsuari extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(btnAcceptar);
 
         //El botón OK no está disponible hasta que estén todos los campos rellenos
-        buttonOK.setEnabled(false);
+        btnAcceptar.setEnabled(false);
         chkEsEstudiant.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 esEstudiant = chkEsEstudiant.isSelected();
             }
         });
-        buttonOK.addActionListener(new ActionListener() {
+        btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nom = txtNom.getText();
@@ -54,11 +54,11 @@ public class AfegirUsuari extends JDialog {
                     adaptador.afegirUsuari(email, nom, adreca, esEstudiant);
                     dispose();
                 } catch(BiblioException ex){
-                    JOptionPane.showMessageDialog(AfegirUsuari.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(FrmAfegirUsuari.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        buttonCancel.addActionListener(new ActionListener() {
+        btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -67,19 +67,19 @@ public class AfegirUsuari extends JDialog {
         txtNom.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
         txtEmail.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
         txtAdreca.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                buttonOK.setEnabled(comprobarCampsText());
+                btnAcceptar.setEnabled(comprobarCampsText());
             }
         });
     }
