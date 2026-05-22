@@ -10,10 +10,12 @@
     <children>
       <component id="86699" class="javax.swing.JButton" binding="btnGestioUsuaris">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="400" height="40"/>
+          </grid>
         </constraints>
         <properties>
-          <text value="Gestió Usaris"/>
+          <text value="Gestió Usuaris"/>
         </properties>
       </component>
       <component id="75d31" class="javax.swing.JButton" binding="btnGestioExemplars">

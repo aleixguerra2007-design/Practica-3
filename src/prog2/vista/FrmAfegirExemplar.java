@@ -5,10 +5,8 @@ import prog2.adaptador.Adaptador;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 
 public class FrmAfegirExemplar extends JDialog {
     private JPanel contentPane;
@@ -80,6 +78,12 @@ public class FrmAfegirExemplar extends JDialog {
             @Override
             public void keyReleased(KeyEvent e) {
                 btnAcceptar.setEnabled(comprobarCampsText());
+            }
+        });
+        btnTornar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnTornar.setBackground(Color.RED);
             }
         });
     }
