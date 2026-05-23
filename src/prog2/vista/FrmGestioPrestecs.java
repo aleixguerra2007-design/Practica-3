@@ -27,7 +27,7 @@ public class FrmGestioPrestecs extends JDialog {
         setContentPane(panelGestioPrestecs);
         setTitle("Gestió Préstecs - Biblioteca UB");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(700,700);
+        setSize(1000,600);
         setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(btnTornar);

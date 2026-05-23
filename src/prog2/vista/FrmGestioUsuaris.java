@@ -20,7 +20,7 @@ public class FrmGestioUsuaris extends JDialog {
         setContentPane(panelGestioUsuaris);
         setModal(true);
         setTitle("Gestió Usuaris - Biblioteca UB");
-        setSize(1100,700);
+        setSize(1000,600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getRootPane().setDefaultButton(btnTornar);
