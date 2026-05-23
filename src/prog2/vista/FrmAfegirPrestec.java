@@ -23,6 +23,7 @@ public class FrmAfegirPrestec extends JDialog {
     private JPanel panelDatos1;
     private JPanel panelDatos2;
     private JPanel panelDatos3;
+    private JPanel subPanelDatos1;
     private Adaptador adaptador;
     private boolean prestecLlarg;
 
@@ -37,6 +38,7 @@ public class FrmAfegirPrestec extends JDialog {
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(btnAcceptar);
         btnAcceptar.setEnabled(false);
+        btnAcceptar.setToolTipText("Emplena els camps de text");
 
         estilizar();
 
@@ -64,6 +66,7 @@ public class FrmAfegirPrestec extends JDialog {
 
                 try {
                     adaptador.afegirPrestec(exemplarPos, usuariPos, prestecLlarg);
+                    JOptionPane.showMessageDialog(FrmAfegirPrestec.this, "Prestec afegit correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 }catch(BiblioException ex){
                     JOptionPane.showMessageDialog(FrmAfegirPrestec.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -100,8 +103,10 @@ public class FrmAfegirPrestec extends JDialog {
                 btnAcceptar.setEnabled(comprovarCamps());
                 if(comprovarCamps()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 }else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
@@ -134,6 +139,7 @@ public class FrmAfegirPrestec extends JDialog {
         //Cambio de color
         contentPane.setBackground(cBackground);
         panelDatos1.setBackground(cBackground);
+        subPanelDatos1.setBackground(cBackground);
         panelDatos2.setBackground(cBackground);
         panelDatos3.setBackground(cBackground);
         chkEsLlarg.setBackground(cBackground);

@@ -7,8 +7,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FrmGestioPrestecs extends JDialog {
     private JPanel panelGestioPrestecs;
@@ -18,6 +21,12 @@ public class FrmGestioPrestecs extends JDialog {
     private JButton btnRetornarPrestec;
     private JCheckBox chkPrtNoRet;
     private JList listPrestecs;
+    private JPanel panelDatos1;
+    private JPanel subPanelDatos1;
+    private JPanel panelDatos2;
+    private JPanel subPanelDatos2;
+    private JPanel subPanelDatos2_2;
+    private JScrollPane scrollPanePrestec;
     private Adaptador adaptador;
 
 
@@ -32,10 +41,19 @@ public class FrmGestioPrestecs extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(btnTornar);
         listPrestecs.setListData(adaptador.recuperarPrestecs().toArray());
+        scrollPanePrestec.setVisible(false);
         listPrestecs.setVisible(false);
         chkPrtNoRet.setVisible(false);
+
+        estilizar();
+
+        Color retornarInactivo = new Color(79, 86, 83);
+        Color retornarActivo = new Color(165, 233, 198);
+
         btnRetornarPrestec.setEnabled(false);
+        btnRetornarPrestec.setBackground(retornarInactivo);
         btnRetornarPrestec.setToolTipText("Selecciona un element de la llista");
+
 
         btnTornar.addActionListener(new ActionListener() {
             @Override
@@ -57,6 +75,7 @@ public class FrmGestioPrestecs extends JDialog {
         btnVisualitzarPrestec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                scrollPanePrestec.setVisible(true);
                 listPrestecs.setVisible(true);
                 chkPrtNoRet.setVisible(true);
             }
@@ -75,10 +94,12 @@ public class FrmGestioPrestecs extends JDialog {
                 if(listPrestecs.getSelectedValue() instanceof String){
                     if(((String)listPrestecs.getSelectedValue()).contains("retornat=false")){
                         btnRetornarPrestec.setEnabled(true);
+                        btnRetornarPrestec.setBackground(retornarActivo);
                         btnRetornarPrestec.setToolTipText("Retorna el préstec seleccionat");
                     }
                     else{
                         btnRetornarPrestec.setEnabled(false);
+                        btnRetornarPrestec.setBackground(retornarInactivo);
                         btnRetornarPrestec.setToolTipText("Selecciona un element de la llista");
                     }
                 }
@@ -96,6 +117,10 @@ public class FrmGestioPrestecs extends JDialog {
                 try{
                     adaptador.retornar(indice);
                     actualizarLists();
+                    JOptionPane.showMessageDialog(FrmGestioPrestecs.this, "Préstec retornat correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    btnRetornarPrestec.setEnabled(false);
+                    btnRetornarPrestec.setBackground(retornarInactivo);
+                    btnRetornarPrestec.setToolTipText("Selecciona un element de la llista");
                 }catch(BiblioException ex){
                     JOptionPane.showMessageDialog(FrmGestioPrestecs.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
@@ -108,5 +133,104 @@ public class FrmGestioPrestecs extends JDialog {
         }else{
             listPrestecs.setListData(adaptador.recuperarPrestecs().toArray());
         }
+    }
+
+    private void estilizar(){
+        Color cBackground = new Color(227, 245, 235);
+        Color cBotones = new Color(165, 233, 198);
+        Color cHover = new Color(110, 194, 150);
+        Color cTornar = new Color(226, 88, 88);
+
+        Font fBotones = new Font("DejaVu Sans Condensed", Font.PLAIN, 24);
+        Font fListaYChk = new Font("DejaVu Sans Condensed", Font.PLAIN, 18);
+
+        //Cambio de fuente
+        btnTornar.setFont(fBotones);
+        btnAfegirPrestec.setFont(fBotones);
+        btnRetornarPrestec.setFont(fBotones);
+        btnVisualitzarPrestec.setFont(fBotones);
+
+        listPrestecs.setFont(fListaYChk);
+        chkPrtNoRet.setFont(fListaYChk);
+
+        //Cambio de colores
+        panelGestioPrestecs.setBackground(cBackground);
+        panelDatos1.setBackground(cBackground);
+        subPanelDatos1.setBackground(cBackground);
+        panelDatos2.setBackground(cBackground);
+        subPanelDatos2.setBackground(cBackground);
+        subPanelDatos2_2.setBackground(cBackground);
+        chkPrtNoRet.setBackground(cBackground);
+
+        btnTornar.setBackground(cBotones);
+        btnVisualitzarPrestec.setBackground(cBotones);
+        btnRetornarPrestec.setBackground(cBotones);
+        btnAfegirPrestec.setBackground(cBotones);
+
+        //Cambios de color al interactuar con el cursor
+        btnAfegirPrestec.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnAfegirPrestec.setBackground(cHover);
+                btnAfegirPrestec.setBorderPainted(false);
+                btnAfegirPrestec.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                btnAfegirPrestec.setBackground(cBotones);
+                btnAfegirPrestec.setBorderPainted(true);
+            }
+        });
+
+        btnVisualitzarPrestec.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnVisualitzarPrestec.setBackground(cHover);
+                btnVisualitzarPrestec.setBorderPainted(false);
+                btnVisualitzarPrestec.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                btnVisualitzarPrestec.setBackground(cBotones);
+                btnVisualitzarPrestec.setBorderPainted(true);
+            }
+        });
+
+        btnRetornarPrestec.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if(btnRetornarPrestec.isEnabled()){
+                    btnRetornarPrestec.setBackground(cHover);
+                    btnRetornarPrestec.setBorderPainted(false);
+                    btnRetornarPrestec.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                if(btnRetornarPrestec.isEnabled()) {
+                    btnRetornarPrestec.setBackground(cBotones);
+                    btnRetornarPrestec.setBorderPainted(true);
+                }
+            }
+        });
+
+        btnTornar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnTornar.setBackground(cTornar);
+                btnTornar.setBorderPainted(false);
+                btnTornar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e){
+                btnTornar.setBackground(cBotones);
+                btnTornar.setBorderPainted(true);
+            }
+        });
+
     }
 }

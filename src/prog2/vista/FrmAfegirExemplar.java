@@ -41,6 +41,7 @@ public class FrmAfegirExemplar extends JDialog {
 
         //Button OK inactivo hasta que estén todos los campos rellenos
         btnAcceptar.setEnabled(false);
+        btnAcceptar.setToolTipText("Emplena els camps de text");
         btnAcceptar.setBackground(acceptarInactivo);
         btnTornar.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +58,7 @@ public class FrmAfegirExemplar extends JDialog {
 
                 try{
                     adaptador.afegirExemplar(id, titol, autor, admetPrestecLlarg);
-
+                    JOptionPane.showMessageDialog(FrmAfegirExemplar.this, "Exemplar afegit correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 }catch(BiblioException ex){
                     JOptionPane.showMessageDialog(parent, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -76,8 +77,10 @@ public class FrmAfegirExemplar extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
@@ -87,8 +90,10 @@ public class FrmAfegirExemplar extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
@@ -98,8 +103,10 @@ public class FrmAfegirExemplar extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });

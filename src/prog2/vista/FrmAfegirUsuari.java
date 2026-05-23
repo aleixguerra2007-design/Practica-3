@@ -43,6 +43,7 @@ public class FrmAfegirUsuari extends JDialog {
 
         //El botón OK no está disponible hasta que estén todos los campos rellenos
         btnAcceptar.setEnabled(false);
+        btnAcceptar.setToolTipText("Emplena els camps de text");
         btnAcceptar.setBackground(acceptarInactivo);
         chkEsEstudiant.addChangeListener(new ChangeListener() {
             @Override
@@ -58,6 +59,7 @@ public class FrmAfegirUsuari extends JDialog {
                 String adreca = txtAdreca.getText();
                 try {
                     adaptador.afegirUsuari(email, nom, adreca, esEstudiant);
+                    JOptionPane.showMessageDialog(FrmAfegirUsuari.this, "Usuari afegit correctament", "INFO", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(BiblioException ex){
                     JOptionPane.showMessageDialog(FrmAfegirUsuari.this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -76,8 +78,10 @@ public class FrmAfegirUsuari extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
@@ -87,8 +91,10 @@ public class FrmAfegirUsuari extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
@@ -98,8 +104,10 @@ public class FrmAfegirUsuari extends JDialog {
                 btnAcceptar.setEnabled(comprovarCampsText());
                 if(comprovarCampsText()){
                     btnAcceptar.setBackground(acceptarActivo);
+                    btnAcceptar.setToolTipText("Confirmar dades");
                 } else{
                     btnAcceptar.setBackground(acceptarInactivo);
+                    btnAcceptar.setToolTipText("Emplena els camps de text");
                 }
             }
         });
