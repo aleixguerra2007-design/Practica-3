@@ -27,6 +27,8 @@ public class FrmAfegirExemplar extends JDialog {
 
     public FrmAfegirExemplar(JDialog parent, Adaptador adaptador) {
         super(parent);
+
+        //Ajustes principales
         setContentPane(contentPane);
         setTitle("Afegir Exemplar - Biblioteca UB");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -34,12 +36,14 @@ public class FrmAfegirExemplar extends JDialog {
         setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(btnAcceptar);
+
+        //Estética
         estilizar();
 
         Color acceptarInactivo = new Color(79, 86, 83);
         Color acceptarActivo = new Color(165, 233, 198);
 
-        //Button OK inactivo hasta que estén todos los campos rellenos
+        //Button Aceptar inactivo hasta que estén todos los campos rellenos
         btnAcceptar.setEnabled(false);
         btnAcceptar.setToolTipText("Emplena els camps de text");
         btnAcceptar.setBackground(acceptarInactivo);
@@ -49,6 +53,8 @@ public class FrmAfegirExemplar extends JDialog {
                 dispose();
             }
         });
+
+        //Confirmar datos
         btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,12 +71,16 @@ public class FrmAfegirExemplar extends JDialog {
                 }
             }
         });
+
+        //Check box para saber si admite un prétsamo largo
         chkAdmetPrtL.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 admetPrestecLlarg = chkAdmetPrtL.isSelected();
             }
         });
+
+        //El botón Aceptar estará inactivo hasta que haya algo escrito en cada campo
         txtTitol.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -112,9 +122,17 @@ public class FrmAfegirExemplar extends JDialog {
         });
     }
 
+    /**
+     * Comprueba que los campos de texto estén rellenos
+     * @return si los campos están relleno
+     */
     public boolean comprovarCampsText(){
         return !txtTitol.getText().isEmpty() && !txtAutor.getText().isEmpty() && !txtId.getText().isEmpty();
     }
+
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);

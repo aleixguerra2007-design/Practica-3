@@ -21,6 +21,7 @@ public class FrmGestioUsuaris extends JDialog {
 
     public FrmGestioUsuaris(JFrame parent, Adaptador adaptador) {
         super(parent);
+        //Ajustes principales
         this.adaptador = adaptador;
         setContentPane(panelGestioUsuaris);
         setModal(true);
@@ -29,11 +30,15 @@ public class FrmGestioUsuaris extends JDialog {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getRootPane().setDefaultButton(btnTornar);
+
+        //Mostramos los usuarios registrados
         listUsuaris.setListData(adaptador.recuperarUsuaris().toArray());
         listUsuaris.setVisible(true);
 
+        //Estética
         estilizar();
 
+        //Salir
         btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,6 +46,7 @@ public class FrmGestioUsuaris extends JDialog {
             }
         });
 
+        //Abrimos la ventana para añadir un usuario
         btnAfegirUsuari.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +56,10 @@ public class FrmGestioUsuaris extends JDialog {
             }
         });
     }
+
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);

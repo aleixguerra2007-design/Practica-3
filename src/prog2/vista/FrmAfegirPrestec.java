@@ -29,6 +29,8 @@ public class FrmAfegirPrestec extends JDialog {
 
     public FrmAfegirPrestec(JDialog parent, Adaptador adaptador) {
         super(parent);
+
+        //Ajustes principales
         this.adaptador = adaptador;
         setContentPane(contentPane);
         setModal(true);
@@ -40,6 +42,7 @@ public class FrmAfegirPrestec extends JDialog {
         btnAcceptar.setEnabled(false);
         btnAcceptar.setToolTipText("Emplena els camps de text");
 
+        //Estética:
         estilizar();
 
         Color acceptarInactivo = new Color(79, 86, 83);
@@ -58,6 +61,7 @@ public class FrmAfegirPrestec extends JDialog {
             cmbExemplar.addItem(exemplar);
         }
 
+        //Confirmar datos
         btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,18 +78,23 @@ public class FrmAfegirPrestec extends JDialog {
             }
         });
 
+        //Salir de la ventana sin guardar
         btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+
+        //Check Box de si el préstamo es largo
         chkEsLlarg.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 prestecLlarg = chkEsLlarg.isSelected();
             }
         });
+
+        //El botón Aceptar estará dispoible solo si se ha seleccionado un usuario y ejemplar
         cmbUsuari.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,10 +120,18 @@ public class FrmAfegirPrestec extends JDialog {
             }
         });
     }
+
+    /**
+     * Comprueba que se ha seleccionado un usuario y un ejemplar
+     * @return usuario y ejemplar están seleccionados
+     */
     public boolean comprovarCamps(){
         return !cmbUsuari.getSelectedItem().equals("...") && !cmbExemplar.getSelectedItem().equals("...");
     }
 
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);

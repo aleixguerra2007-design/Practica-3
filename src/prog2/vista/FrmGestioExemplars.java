@@ -17,6 +17,7 @@ public class FrmGestioExemplars extends JDialog {
 
     public FrmGestioExemplars(JFrame parent, Adaptador adaptador) {
         super(parent);
+        //Ajustes principales
         this.adaptador = adaptador;
         setContentPane(panelGestioExemplars);
         setTitle("Gestió exemplars - Biblioteca UB");
@@ -25,16 +26,21 @@ public class FrmGestioExemplars extends JDialog {
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(btnTornar);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        //Mostramos los ejemplares registrados
         listExemplars.setListData(adaptador.recuperarExemplars().toArray());
 
+        //Estética
         estilizar();
 
+        //Salir
         btnTornar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
 
+        //Se abre la ventana para añadir un ejemplar
         btnAfegirExemplar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,6 +51,9 @@ public class FrmGestioExemplars extends JDialog {
         });
     }
 
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);

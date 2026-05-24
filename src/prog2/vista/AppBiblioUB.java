@@ -20,6 +20,8 @@ public class AppBiblioUB extends JFrame {
 
     public AppBiblioUB(Adaptador adaptador){
         this.adaptador = adaptador;
+
+        //Ajustes principales:
         setTitle("AppBiblioUB");
         setContentPane(panelBiblioUB);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,8 +29,10 @@ public class AppBiblioUB extends JFrame {
         setLocationRelativeTo(null);
         panelBiblioUB.setBorder(BorderFactory.createEmptyBorder(50, 150, 50, 150));
 
+        //Estética:
         estilizar();
 
+        //Abrimos el menú de gestión de usuarios
         btnGestioUsuaris.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +40,8 @@ public class AppBiblioUB extends JFrame {
                 gestioUsuaris.setVisible(true);
             }
         });
+
+        //Abrimos el menú de gestión de ejemplares
         btnGestioExemplars.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +49,8 @@ public class AppBiblioUB extends JFrame {
                 gestioExemplars.setVisible(true);
             }
         });
+
+        //Abrimos el menú de gestión de préstamos
         btnGestioPrestecs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,6 +58,8 @@ public class AppBiblioUB extends JFrame {
                 gestioPrestecs.setVisible(true);
             }
         });
+
+        //Gestión de archivos para guardar
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,6 +78,7 @@ public class AppBiblioUB extends JFrame {
             }
         });
 
+        //Gestión de archivos para cargar
         btnCarregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,30 +101,36 @@ public class AppBiblioUB extends JFrame {
         });
     }
 
+    /**
+     * Este método decora toda la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);
         Color cHover = new Color(110, 194, 150);
 
         Font fBotones = new Font("DejaVu Sans Condensed", Font.PLAIN, 22);
-//Fuentes locales disponibles:
-// [Bitstream Charter, C059, Cantarell, cmex10, cmmi10, cmr10, cmsy10, Courier 10 Pitch, D050000L,
-// DejaVu Math TeX Gyre, DejaVu Sans, DejaVu Sans Condensed, DejaVu Sans Light, DejaVu Sans Mono,
-// DejaVu Serif, DejaVu Serif Condensed, Dialog, DialogInput, Droid Sans Fallback, dsrom10, esint10,
-// eufm10, FontAwesome, GLYPHICONS Halflings, Liberation Mono, Liberation Sans, Liberation Sans Narrow,
-// Liberation Serif, MathJax_AMS, MathJax_Caligraphic, MathJax_Fraktur, MathJax_Main, MathJax_Math,
-// MathJax_SansSerif, MathJax_Script, MathJax_Size1, MathJax_Size2, MathJax_Size3, MathJax_Size4,
-// MathJax_Typewriter, MathJax_Vector, MathJax_Vector-Bold, MathJax_WinChrome, MathJax_WinIE6, Monospaced,
-// msam10, msbm10, Nimbus Mono PS, Nimbus Roman, Nimbus Sans, Nimbus Sans Narrow, Noto Color Emoji, Noto Mono,
-// Noto Sans Mono, OpenSymbol, P052, Quicksand, Quicksand Light, Quicksand Medium, rsfs10, SansSerif, Serif,
-// Standard Symbols PS, stmary10, Symbola, URW Bookman, URW Gothic, wasy10, Z003]
 
+        //Fuentes locales disponibles:
+        // [Bitstream Charter, C059, Cantarell, cmex10, cmmi10, cmr10, cmsy10, Courier 10 Pitch, D050000L,
+        // DejaVu Math TeX Gyre, DejaVu Sans, DejaVu Sans Condensed, DejaVu Sans Light, DejaVu Sans Mono,
+        // DejaVu Serif, DejaVu Serif Condensed, Dialog, DialogInput, Droid Sans Fallback, dsrom10, esint10,
+        // eufm10, FontAwesome, GLYPHICONS Halflings, Liberation Mono, Liberation Sans, Liberation Sans Narrow,
+        // Liberation Serif, MathJax_AMS, MathJax_Caligraphic, MathJax_Fraktur, MathJax_Main, MathJax_Math,
+        // MathJax_SansSerif, MathJax_Script, MathJax_Size1, MathJax_Size2, MathJax_Size3, MathJax_Size4,
+        // MathJax_Typewriter, MathJax_Vector, MathJax_Vector-Bold, MathJax_WinChrome, MathJax_WinIE6, Monospaced,
+        // msam10, msbm10, Nimbus Mono PS, Nimbus Roman, Nimbus Sans, Nimbus Sans Narrow, Noto Color Emoji, Noto Mono,
+        // Noto Sans Mono, OpenSymbol, P052, Quicksand, Quicksand Light, Quicksand Medium, rsfs10, SansSerif, Serif,
+        // Standard Symbols PS, stmary10, Symbola, URW Bookman, URW Gothic, wasy10, Z003]
+
+        //Fuentes:
         btnGestioExemplars.setFont(fBotones);
         btnCarregar.setFont(fBotones);
         btnGuardar.setFont(fBotones);
         btnGestioPrestecs.setFont(fBotones);
         btnGestioUsuaris.setFont(fBotones);
 
+        //Colores
         panelBiblioUB.setBackground(cBackground);
         btnGestioUsuaris.setBackground(cBotones);
         btnCarregar.setBackground(cBotones);
@@ -121,6 +138,7 @@ public class AppBiblioUB extends JFrame {
         btnGestioPrestecs.setBackground(cBotones);
         btnGestioExemplars.setBackground(cBotones);
 
+        //Interaccion de colores con el cursor
         btnGestioUsuaris.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {

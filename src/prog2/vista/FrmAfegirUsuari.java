@@ -27,6 +27,7 @@ public class FrmAfegirUsuari extends JDialog {
 
     public FrmAfegirUsuari(JDialog parent, Adaptador adaptador) {
         super(parent);
+        //Ajustes principales
         this.adaptador = adaptador;
         setContentPane(contentPane);
         setTitle("Afegir Usuari - Biblioteca UB");
@@ -36,12 +37,13 @@ public class FrmAfegirUsuari extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(btnAcceptar);
 
+        //Estética
         estilizar();
 
         Color acceptarInactivo = new Color(79, 86, 83);
         Color acceptarActivo = new Color(165, 233, 198);
 
-        //El botón OK no está disponible hasta que estén todos los campos rellenos
+        //El botón Aceptar no está disponible hasta que estén todos los campos rellenos
         btnAcceptar.setEnabled(false);
         btnAcceptar.setToolTipText("Emplena els camps de text");
         btnAcceptar.setBackground(acceptarInactivo);
@@ -51,6 +53,8 @@ public class FrmAfegirUsuari extends JDialog {
                 esEstudiant = chkEsEstudiant.isSelected();
             }
         });
+
+        //Confirmar datos
         btnAcceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,12 +70,16 @@ public class FrmAfegirUsuari extends JDialog {
                 }
             }
         });
+
+        //Salir de la ventana sin guardar
         btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+
+        //El botón Aceptar estará inactivo hasta que los campos de texto estén rellenos
         txtNom.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -113,10 +121,17 @@ public class FrmAfegirUsuari extends JDialog {
         });
     }
 
+    /**
+     * Comprueba que los campos de texto estén rellenos
+     * @return
+     */
     public boolean comprovarCampsText(){
         return !txtNom.getText().isEmpty() && !txtAdreca.getText().isEmpty() && !txtEmail.getText().isEmpty();
     }
 
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);

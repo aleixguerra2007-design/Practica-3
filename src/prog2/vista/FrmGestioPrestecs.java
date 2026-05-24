@@ -32,6 +32,7 @@ public class FrmGestioPrestecs extends JDialog {
 
     public FrmGestioPrestecs(JFrame parent, Adaptador adaptador) {
         super(parent);
+        //Ajustes principales
         this.adaptador = adaptador;
         setContentPane(panelGestioPrestecs);
         setTitle("Gestió Préstecs - Biblioteca UB");
@@ -40,13 +41,18 @@ public class FrmGestioPrestecs extends JDialog {
         setLocationRelativeTo(null);
         setModal(true);
         getRootPane().setDefaultButton(btnTornar);
+
+        //Mostramos los préstamos en la lista
         listPrestecs.setListData(adaptador.recuperarPrestecs().toArray());
+        //No está visible hasta que el usuario presione el botón de visualizar
         scrollPanePrestec.setVisible(false);
         listPrestecs.setVisible(false);
         chkPrtNoRet.setVisible(false);
 
+        //Estética
         estilizar();
 
+        //Estética del botón retornar:
         Color retornarInactivo = new Color(79, 86, 83);
         Color retornarActivo = new Color(165, 233, 198);
 
@@ -54,13 +60,15 @@ public class FrmGestioPrestecs extends JDialog {
         btnRetornarPrestec.setBackground(retornarInactivo);
         btnRetornarPrestec.setToolTipText("Selecciona un element de la llista");
 
-
+        //Salir
         btnTornar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
+
+        //Mostramos los prestámos no devueltos o todos dependiendo de si el usuario lo desea o no
         chkPrtNoRet.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -72,6 +80,8 @@ public class FrmGestioPrestecs extends JDialog {
                 }
             }
         });
+
+        //Hacemos visible la lista de préstamos
         btnVisualitzarPrestec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +90,8 @@ public class FrmGestioPrestecs extends JDialog {
                 chkPrtNoRet.setVisible(true);
             }
         });
+
+        //Abrimos la ventana para añadir un préstamo
         btnAfegirPrestec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +100,8 @@ public class FrmGestioPrestecs extends JDialog {
                 actualizarLists();
             }
         });
+
+        //El botón retornar no estará habilitado hasta que se seleccione un préstamo NO devuelto
         listPrestecs.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -105,6 +119,8 @@ public class FrmGestioPrestecs extends JDialog {
                 }
             }
         });
+
+        //Devolvemos el préstamo seleccionado e inhabilitamos de nuevo el botón retornar
         btnRetornarPrestec.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,6 +143,10 @@ public class FrmGestioPrestecs extends JDialog {
             }
         });
     }
+
+    /**
+     * Actualiza la lista de préstamos que se está mostrando dependiendo de la checkbox chkPrtNoRet
+     */
     public void actualizarLists(){
         if(chkPrtNoRet.isSelected()){
             listPrestecs.setListData(adaptador.recuperarPrestecsNoRetornats().toArray());
@@ -135,6 +155,9 @@ public class FrmGestioPrestecs extends JDialog {
         }
     }
 
+    /**
+     * Estiliza la interfaz
+     */
     private void estilizar(){
         Color cBackground = new Color(227, 245, 235);
         Color cBotones = new Color(165, 233, 198);
